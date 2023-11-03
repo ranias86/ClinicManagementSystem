@@ -1,0 +1,5 @@
+﻿  Clinic.cpp
+C:\Users\ranias86\source\repos\CMS Console\CMS Console\Clinic.cpp(134,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  CMS Console.cpp
+  Generating Code...
+  CMS Console.vcxproj -> C:\Users\ranias86\source\repos\CMS Console\x64\Debug\CMS Console.exe
