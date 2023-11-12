@@ -20,10 +20,27 @@ private:
     bool PatientStatus = 0;
     int error;
 
-    void CreateDirectory(const std::string& path);
-
+    void CreateDirectory(const string& path);
 
 public:
+    int setPatientID ();
+    int getPatientID ();
+
+    string setPatientName();
+    string getPatientName();
+
+    int setPatientAge();
+    int getPatientAge();
+
+    char setPatientGender();
+    char getPatientGender();
+
+    string setPatientCondition();
+    string getPatientCondition();
+
+    bool setPatientStatus();
+    bool getPatientStatus();
+
     void AddPatient();
     void ViewPatient(int PID);
     void MarkPatient(int PID);
