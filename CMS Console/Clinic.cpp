@@ -10,6 +10,65 @@
 #include <cstdlib>
 
 using namespace std;
+int Clinic::setPatientID (){
+    int ID =0;
+    cin >> ID;
+    this->PatientID=ID;
+    return ID;
+}
+int Clinic::getPatientID (){
+    return this->PatientID;
+}
+
+string Clinic::setPatientName(){
+    string Name;
+    getline(cin, Name);
+    this->PatientName=Name;
+    return Name;
+}
+string Clinic::getPatientName(){
+    return this->PatientName;
+}
+
+ int Clinic::setPatientAge(){
+        int Age;
+        cin >> Age;
+        this->PatientAge=Age;
+        return Age;
+ }
+ int Clinic::getPatientAge(){
+    return this->PatientAge;
+ }
+
+char Clinic::setPatientGender(){
+    char Gender;
+    cin >> Gender;
+    this->PatientGender=Gender;
+    cin.ignore(1, '\n');
+    return Gender;
+}
+char Clinic::getPatientGender(){
+    return this->PatientGender;
+}
+
+string Clinic::setPatientCondition(){
+    string Condition;
+    getline(cin, Condition);
+    this->PatientCondition=Condition;
+    return Condition;
+}
+string Clinic::getPatientCondition(){
+    return this->PatientCondition;
+}
+
+bool Clinic::setPatientStatus(){
+    bool Status=0;
+    this->PatientStatus=Status;
+    return Status;
+}
+bool Clinic::getPatientStatus(){
+    return this->PatientStatus;
+}
 
 bool ValidateName(string Name) {
     return any_of(Name.begin(), Name.end(), ::isdigit);
@@ -21,77 +80,74 @@ void Clinic::CreateDirectory(const string& path) {
 
 void Clinic::AddPatient() {
 
-    // Create the directory C:\CMSDatabase if it does not already exist.
+// Create the directory C:\CMSDatabase if it does not already exist.
     CreateDirectory("C:\\CMSDatabase");
 
-    // Enter Patient ID
+// Enter Patient ID
     cout << "Patient ID: ";
-    cin >> this->PatientID;
+    setPatientID();
     cin.ignore(1, '\n');
 
-    string FileName = "C:\\CMSDatabase\\PatientInfoDB-" + to_string(this->PatientID) + ".txt";
+//File Handling
+    string FileName = "C:\\CMSDatabase\\PatientInfoDB-" + to_string(getPatientID()) + ".txt";
 
     fstream File;
     File.open(FileName, ios::app);
-    File << "Patient ID: " << this->PatientID << endl;
+    File << "Patient ID: " << getPatientID() << endl;
 
-    // Enter Patient Name
+// Enter Patient Name
     do {
         cout << "Patient Name: ";
-        getline(cin, this->PatientName);
-        if (ValidateName(this->PatientName) == true)
+
+        if (ValidateName(setPatientName()) == true)
             cout << "Please enter a valid Patient Name. " << endl;
 
-    } while (ValidateName(this->PatientName) == true);
-    File << "Patient Name: " << this->PatientName << endl;
+    } while (ValidateName(getPatientName()) == true);
+    File << "Patient Name: " << getPatientName() << endl;
 
-    // Enter Patient Age
+// Enter Patient Age
     do {
-        error = 0;
+        error=0;
         cout << "Patient Age: ";
-        cin >> PatientAge;
-        if (cin.fail() || this->PatientAge <= 0 || this->PatientAge >= 99) {
+        setPatientAge();
+        if (cin.fail() || getPatientAge() <= 0 || getPatientAge() >= 99) {
             cout << "Please enter a valid Patient Age. " << endl;
             error = 1;
             cin.clear();
             cin.ignore(256, '\n');
         }
     } while (error == 1);
-    File << "Patient Age: " << this->PatientAge << endl;
+    File << "Patient Age: " << getPatientAge() << endl;
 
-    // Enter Patient Gender
+// Enter Patient Gender
     do {
+        error=0;
         cout << "Patient Gender (F/M): ";
-        cin >> PatientGender;
 
-        switch (PatientGender)
+        switch (setPatientGender())
         {
         case 'M':
         case 'm':
-            error = 0;
-            break;
         case 'F':
         case 'f':
-            error = 0;
             break;
         default:
             cout << "Unspecified Gender, Kindly enter Patient Gender again (F/M)." << endl;
             error = 1;
+            break;
         }
     } while (error == 1);
-    File << "Patient Gender: " << this->PatientGender << endl;
+    File << "Patient Gender: " << getPatientGender() << endl;
 
-    cin.ignore(1, '\n');
     // Enter Patient Condition
     cout << "Patient Condition: ";
-    getline(cin, this->PatientCondition);
-    File << "Patient Condition: " << this->PatientCondition << endl;
+   setPatientCondition();
+    File << "Patient Condition: " << getPatientCondition() << endl;
 
-    this->PatientStatus = 0;
+    setPatientStatus();
     File << "Patient Status: Untreated " << endl;
 
     File.close();
-
 }
 
 void Clinic::ViewPatient(int PID) {
